@@ -12,5 +12,8 @@ angular.module('timetrackerApp', [
       .when '/',
         templateUrl: 'views/main.html'
         controller: 'MainCtrl'
+      .when '/tasks',
+        templateUrl: 'views/tasks.html'
+        controller: 'TasksCtrl'
       .otherwise
         redirectTo: '/'
