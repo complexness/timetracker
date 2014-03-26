@@ -36,7 +36,8 @@
     "karma-jasmine": "^0.1.5",
     "karma-firefox-launcher": "^0.1.3",
     "karma-safari-launcher": "^0.1.1",
-    "karma-coffee-preprocessor": "^0.2.1"
+    "karma-coffee-preprocessor": "^0.2.1",
+    "connect-modrewrite": "^0.6.4-pre"
   },
   "engines": {
     "node": ">=0.8.0"

@@ -15,6 +15,10 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  // MODIFIED: Allow LiveReload server to rewrite URLs
+  // The primary goal is to change domain/#/server to domain/server
+  var modRewrite = require('connect-modrewrite');
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -69,8 +73,20 @@ module.exports = function (grunt) {
           base: [
             '.tmp',
             '<%= yeoman.app %>'
-          ]
-        }
+          ],
+          // MODIFIED: Allow LiveReload server to rewrite URLs
+          // The primary goal is to change domain/#/server to domain/server
+          middleware: function (connect, options) {
+            var middlewares = [];
+
+            // Rewrite all URLs that do not contain a '.' (period) to index.html
+            middlewares.push(modRewrite(['^[^\\.]*$ /index.html [L]']));
+            options.base.forEach(function (base) {
+              middlewares.push(connect.static(base));
+            });
+            return middlewares;
+          } //middleware
+        } //options
       },
       test: {
         options: {
