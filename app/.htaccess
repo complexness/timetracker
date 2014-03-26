@@ -255,6 +255,20 @@ AddDefaultCharset utf-8
 #    RewriteRule ^ http://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 # </IfModule>
 
+# ------------------------------------------------------------------------------
+# | Removing hashes between domain and path (ie domain/#/path) in AngularJS                  |
+# ------------------------------------------------------------------------------
+
+# Source inspired by http://ericduran.io/2013/05/31/angular-html5Mode-with-yeoman/
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !index
+    RewriteCond %{REQUEST_URI} !.*\.(css|js|html|png|gif)
+    RewriteRule (.*) /index.html [L]
+</IfModule>
+
 
 # ##############################################################################
 # # SECURITY                                                                   #

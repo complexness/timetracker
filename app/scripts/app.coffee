@@ -7,7 +7,7 @@ angular.module('timetrackerApp', [
   'ngRoute',
   'firebase'
 ])
-  .config ($routeProvider) ->
+  .config ($routeProvider, $locationProvider) ->
     $routeProvider
       .when '/',
         templateUrl: 'views/main.html'
@@ -17,3 +17,5 @@ angular.module('timetrackerApp', [
         controller: 'TasksCtrl'
       .otherwise
         redirectTo: '/'
+    # remove hash from URLs ('domain/#/path' to 'domain/path')
+    $locationProvider.html5Mode(true)
