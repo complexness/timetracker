@@ -4,7 +4,8 @@ angular.module('timetrackerApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'firebase'
 ])
   .config ($routeProvider) ->
     $routeProvider
