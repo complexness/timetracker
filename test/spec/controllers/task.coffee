@@ -1,17 +1,17 @@
 'use strict'
 
-describe 'Controller: TasksCtrl', () ->
+describe 'Controller: TaskCtrl', () ->
 
   # load the controller's module
   beforeEach module 'timetrackerApp'
 
-  TasksCtrl = {}
+  TaskCtrl = {}
   scope = {}
 
   # Initialize the controller and a mock scope
   beforeEach inject ($controller, $rootScope) ->
     scope = $rootScope.$new()
-    TasksCtrl = $controller 'TasksCtrl', {
+    TaskCtrl = $controller 'TaskCtrl', {
       $scope: scope
     }
 
