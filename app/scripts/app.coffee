@@ -12,9 +12,9 @@ angular.module('timetrackerApp', [
       .when '/',
         templateUrl: 'views/main.html'
         controller: 'MainCtrl'
-      .when '/tasks',
-        templateUrl: 'views/tasks.html'
-        controller: 'TasksCtrl'
+      .when '/task',
+        templateUrl: 'views/task.html'
+        controller: 'TaskCtrl'
       .when '/user',
         templateUrl: 'views/user.html'
         controller: 'UserCtrl'
