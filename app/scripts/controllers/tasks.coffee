@@ -1,9 +1,8 @@
 'use strict'
 
 angular.module('timetrackerApp')
-  .controller 'TasksCtrl', ($scope, $firebase) ->
-    FirebaseURL = 'https://complexness-time.firebaseio.com'
-    $scope.tasks = $firebase(new Firebase(FirebaseURL + '/tasks'))
+  .controller 'TasksCtrl', ($scope, $firebase, FBURL) ->
+    $scope.tasks = $firebase(new Firebase(FBURL + 'tasks'))
     $scope.addTask = ->
         task = $scope.tasks.$child($scope.number)
         task.$set({
