@@ -11,26 +11,22 @@
 ### AngularJS
 ### Firebase
 ### [Yeoman](http://yeoman.io) for scaffolding
-`generator-angular` has already been installed in this project. We did not use `generator-angularfire` because it's not (yet) available for coffeescript.
+`generator-angular` has already been installed in this project. We did not use `generator-angularfire` because it's not (yet) available in Coffeescript.
 
-#### generator-angular subgenerators
-0. Generate controller and view with `yo angular:route *myroute* --coffee` (adds *myroute* to `app/scripts/app.coffee`, `app/scripts/controllers/*myroute*.coffee`, `app/views/*myroute*.html`)
+#### Use generator-angular subgenerators
+0. Generate controller and view with `yo angular:route <myroute> --coffee` (this adds *myroute* to `app/scripts/app.coffee`, `app/scripts/controllers/<myroute>.coffee`, `app/views/<myroute>.html`)
+0. See [the official docs](https://github.com/yeoman/generator-angular) for more subgenerators
 
-See [the official docs](https://github.com/yeoman/generator-angular) too.
 
-
-#### To add another generator to the project:
-
+#### Add another generator to the project:
 0. Install the generator with `npm install -g generator-<name>`
 0. `cd` into the project's root directory and run `yo <name>`
 
 ### [Bower](http://bower.io) for dependency management
-Some useful bower commands:
-
-0. `bower search *dependency*` searches the Bower registry for *dependency*
-0. `bower install *dependency1*..*dependencyN* --save` downloads and installs specified dependencies, and the flag means to update `bower.json`
+0. `bower search <dependency>` searches the Bower registry for *dependency*
+0. `bower install <dependency1>..<dependencyN> --save` downloads and installs specified dependencies, and updates `bower.json` (specified by the flag `--save`)
 0. `bower list` lists current dependencies
-0. `bower update *dependency*` updates *dependency*
+0. `bower update <dependency>` updates *dependency*
 
 ### [Grunt](http://gruntjs.com) for building, previewing, testing
 
