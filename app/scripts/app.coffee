@@ -18,6 +18,9 @@ angular.module('timetrackerApp', [
       .when '/user',
         templateUrl: 'views/user.html'
         controller: 'UserCtrl'
+      .when '/record',
+        templateUrl: 'views/record.html'
+        controller: 'RecordCtrl'
       .otherwise
         redirectTo: '/'
     # remove hash from URLs ('domain/#/path' to 'domain/path')
