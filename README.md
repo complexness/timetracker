@@ -24,9 +24,10 @@
 
 ### [Bower](http://bower.io) for dependency management
 0. `bower search <dependency>` searches the Bower registry for *dependency*
-0. `bower install <dependency1>..<dependencyN> --save` downloads and installs specified dependencies, and updates `bower.json` (specified by the flag `--save`)
 0. `bower list` lists current dependencies
 0. `bower update <dependency>` updates *dependency*
+0. `bower install <dependency1>..<dependencyN> --save` downloads and installs specified dependencies, and updates `bower.json` (specified by the flag `--save`)
+0. `bower uninstall <dependency1>..<dependencyN> --save`
 
 ### [Grunt](http://gruntjs.com) for building, previewing, testing
 
