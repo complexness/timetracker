@@ -16,14 +16,16 @@ angular.module('timetrackerApp')
                     description: $scope.jobDescription
                     startDate: $scope.jobStartDate
                     payRatePerHour: $scope.jobPayRatePerHour
-                role: $scope.role.name
+                role: $scope.role.roleID
             .then (reference) ->
+                # add userID to user
                 userID = reference.name()
                 user = $scope.users.$child(userID)
                 user.$update 'userID': userID
                 user.$priority = $scope.loginEmail
                 $scope.users.$save(userID)
-                $scope.roles.$child($scope.role.name).$add reference.name(): true
+                # add reference to users in roles
+                $scope.roles.$child($scope.role.roleID + '/users/' + userID).$set true
             # blank form
             $scope.nameFirst = $scope.nameLast = ''
             $scope.loginEmail = $scope.loginPassword = ''
@@ -32,6 +34,9 @@ angular.module('timetrackerApp')
             $scope.payRatePerHour = 0
         $scope.deleteUser = (user) ->
             $scope.users.$remove(user.userID)
-        $scope.updateUserRole = (user, r) ->
-            user = $scope.users.$child(user.userID)
-            user.$update role: r
+            $scope.roles.$child(user.role + '/users/').$remove(user.userID)
+        $scope.updateUserRole = (user, roleDst) ->
+            roleSrc = user.role
+            $scope.users.$child(user.userID).$update role: roleDst
+            $scope.roles.$child(roleSrc + '/users/').$remove(user.userID)
+            $scope.roles.$child(roleDst + '/users/' + user.userID).$set true
