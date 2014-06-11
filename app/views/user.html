@@ -24,7 +24,6 @@
                     <td>{{user.job.payRatePerHour}}</td>
                     <td>{{user.role}}</td>
                     <td>
-                        <button ng-click="toggleUserActive(user)">Toggle Active</button>
                         <button ng-click="deleteUser(user)">Delete</button>
                         <button ng-click="updateUserRole(user, 'standard')">Standard</button>
                         <button ng-click="updateUserRole(user, 'admin')">Admin</button>
@@ -91,7 +90,7 @@
                     <select
                         id="role"
                         ng-model="role"
-                        ng-options="role.name for role in roles"></select>
+                        ng-options="role.name for (roleID, role) in roles"></select>
                 </div>
             </div>
             <!-- save -->
