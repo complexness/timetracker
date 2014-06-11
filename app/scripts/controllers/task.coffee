@@ -3,19 +3,31 @@
 angular.module('timetrackerApp')
     .controller 'TaskCtrl', ($scope, $firebase, FBURL) ->
         $scope.tasks = $firebase(new Firebase(FBURL + 'tasks'))
+        $scope.taskCategories = $firebase(new Firebase(FBURL + 'taskCategories'))
+
+        # Display values
+        taskCategories = []
+        $scope.taskCategories.$on "loaded", (snapshot) ->
+            taskCategories = snapshot
+        $scope.taskCategoryName = (taskCategoryID) ->
+            return taskCategories[taskCategoryID].name
+
+        # Firebase communication
         $scope.addTask = ->
-            task = $scope.tasks.$child($scope.number)
-            task.$set
-                number: $scope.number,
-                category: $scope.category,
-                description: $scope.description,
+            $scope.tasks.$child($scope.taskID).$set
+                taskID: $scope.taskID,
+                taskCategoryID: $scope.taskCategory.taskCategoryID,
+                name: $scope.name,
                 active: true
+            $scope.taskCategories.$child($scope.taskCategory.taskCategoryID + '/tasks/' + $scope.taskID).$set true
+            # reset form
             $scope.number = 0
             $scope.category = $scope.description = ''
         $scope.deleteTask = (task) ->
-            $scope.tasks.$remove(task.number)
+            $scope.tasks.$remove task.taskID
+            $scope.taskCategories.$child(task.taskCategoryID + '/tasks/').$remove task.taskID
         $scope.toggleTaskActive = (task) ->
-            task = $scope.tasks.$child(task.number)
+            task = $scope.tasks.$child(task.taskID)
             if task.active
                 task.$update active: false
             else
