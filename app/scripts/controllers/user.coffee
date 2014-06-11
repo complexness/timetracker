@@ -2,15 +2,10 @@
 
 angular.module('timetrackerApp')
     .controller 'UserCtrl', ($scope, $firebase, FBURL) ->
-        $scope.roles = [
-            {name: 'root'},
-            {name: 'admin'},
-            {name: 'standard'}
-        ]
+        $scope.roles = $firebase(new Firebase(FBURL + 'roles'))
         $scope.users = $firebase(new Firebase(FBURL + 'users'))
         $scope.addUser = ->
-            user = $scope.users.$child('1')
-            user.$set
+            $scope.users.$add
                 name:
                     first: $scope.nameFirst
                     last: $scope.nameLast
@@ -21,20 +16,22 @@ angular.module('timetrackerApp')
                     description: $scope.jobDescription
                     startDate: $scope.jobStartDate
                     payRatePerHour: $scope.jobPayRatePerHour
-                role: $scope.role
+                role: $scope.role.name
+            .then (reference) ->
+                userID = reference.name()
+                user = $scope.users.$child(userID)
+                user.$update 'userID': userID
+                user.$priority = $scope.loginEmail
+                $scope.users.$save(userID)
+                $scope.roles.$child($scope.role.name).$add reference.name(): true
+            # blank form
             $scope.nameFirst = $scope.nameLast = ''
             $scope.loginEmail = $scope.loginPassword = ''
             $scope.jobDescription = ''
             $scope.jobStartDate = ''
             $scope.payRatePerHour = 0
         $scope.deleteUser = (user) ->
-            $scope.users.$remove(user.nickname)
-        $scope.toggleUserActive = (user) ->
-            user = $scope.users.$child(user.nickname)
-            if user.active
-                user.$update active: false
-            else
-                user.$update active: true
+            $scope.users.$remove(user.userID)
         $scope.updateUserRole = (user, r) ->
-            user = $scope.users.$child(user.nickname)
+            user = $scope.users.$child(user.userID)
             user.$update role: r
