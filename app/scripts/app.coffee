@@ -12,15 +12,24 @@ angular.module('timetrackerApp', [
       .when '/',
         templateUrl: 'views/main.html'
         controller: 'MainCtrl'
+      .when '/passwordforgot',
+        templateUrl: 'views/passwordforgot.html'
+        controller: 'AuthCtrl'
+      .when '/record',
+        templateUrl: 'views/record.html'
+        controller: 'RecordCtrl'
+      .when '/settings',
+        templateUrl: 'views/settings.html'
+        controller: 'AuthCtrl'
+      .when '/start',
+        templateUrl: 'views/start.html'
+        controller: 'AuthCtrl'
       .when '/task',
         templateUrl: 'views/task.html'
         controller: 'TaskCtrl'
       .when '/user',
         templateUrl: 'views/user.html'
         controller: 'UserCtrl'
-      .when '/record',
-        templateUrl: 'views/record.html'
-        controller: 'RecordCtrl'
       .otherwise
         redirectTo: '/'
     # remove hash from URLs ('domain/#/path' to 'domain/path')
