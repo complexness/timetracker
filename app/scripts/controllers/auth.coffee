@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('timetrackerApp')
-  .controller 'AuthCtrl', ($scope, $firebase, $firebaseSimpleLogin, FBURL) ->
+  .controller 'AuthCtrl', ($scope, $location, $firebase, $firebaseSimpleLogin, FBURL) ->
     ref = new Firebase(FBURL)
     $scope.auth = $firebaseSimpleLogin(ref)
     $scope.changePassword = ->
@@ -23,6 +23,9 @@ angular.module('timetrackerApp')
             console.log 'Logged in as: ', user.email
         , (error) ->
             console.log 'Login failed: ', error
+    $scope.logout = ->
+        $scope.auth.$logout()
+        $location.path('/')
     $scope.sendPasswordResetEmail = ->
         $scope.auth.$sendPasswordResetEmail $scope.loginEmail
         $scope.loginEmail = ''
