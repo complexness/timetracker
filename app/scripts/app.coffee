@@ -12,26 +12,32 @@ angular.module('timetrackerApp', [
       .when '/',
         templateUrl: 'views/main.html'
         controller: 'MainCtrl'
+        authRequired: false
       .when '/passwordforgot',
         templateUrl: 'views/passwordforgot.html'
         controller: 'AuthCtrl'
+        authRequired: false
       .when '/record',
         templateUrl: 'views/record.html'
         controller: 'RecordCtrl'
+        authRequired: true
       .when '/settings',
         templateUrl: 'views/settings.html'
         controller: 'AuthCtrl'
+        authRequired: true
       .when '/start',
         templateUrl: 'views/start.html'
         controller: 'AuthCtrl'
       .when '/task',
         templateUrl: 'views/task.html'
         controller: 'TaskCtrl'
+        authRequired: true
       .when '/user',
         templateUrl: 'views/user.html'
         controller: 'UserCtrl'
+        authRequired: true
       .otherwise
         redirectTo: '/'
+
     # remove hash from URLs ('domain/#/path' to 'domain/path')
-    $locationProvider.html5Mode(true)
-  .constant('FBURL', 'https://ncuaqmd.firebaseio.com/')
+    $locationProvider.html5Mode true
