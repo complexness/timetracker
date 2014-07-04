@@ -32,6 +32,6 @@ angular.module('timetrackerApp', [
         controller: 'UserCtrl'
       .otherwise
         redirectTo: '/'
+
     # remove hash from URLs ('domain/#/path' to 'domain/path')
-    $locationProvider.html5Mode(true)
-  .constant('FBURL', 'https://ncuaqmd.firebaseio.com/')
+    $locationProvider.html5Mode true
