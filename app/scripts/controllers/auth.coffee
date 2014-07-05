@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('timetrackerApp')
-  .controller 'AuthCtrl', ($scope, $location, authService, userService) ->
+  .controller 'AuthCtrl', ($scope, $location, authService, userService, defaultJobDescription, californiaMinimumWage) ->
     $scope.auth = authService.auth
     $scope.getCurrentUser = ->
         authService.getCurrentUser()
@@ -23,9 +23,9 @@ angular.module('timetrackerApp')
             email: $scope.loginEmail
             roleID: 'standard'
             job:
-                description: ''
-                payRatePerHour: 0
-                startDate: new Date()
+                description: defaultJobDescription
+                payRatePerHour: californiaMinimumWage
+                startDate: new Date().setHours(0, 0, 0, 0)
         $scope.nameFirst = $scope.nameLast = $scope.loginEmail = $scope.loginPassword = ''
         $location.path '/'
     $scope.removeUser = ->
