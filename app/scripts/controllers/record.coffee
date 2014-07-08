@@ -1,52 +1,26 @@
 'use strict'
 
 angular.module('timetrackerApp')
-  .controller 'RecordCtrl', ($scope, $firebase, FBURL) ->
-        $scope.records = $firebase(new Firebase(FBURL + 'records'))
-        $scope.tasks = $firebase(new Firebase(FBURL + 'tasks'))
-        $scope.users = $firebase(new Firebase(FBURL + 'users'))
+    .controller 'RecordCtrl', ($scope, recordService, taskService, userService) ->
 
-        # load (once) task categories for task lists
-        taskCategories = []
-        $firebase(new Firebase(FBURL + 'taskCategories')).$on "loaded", (snapshot) ->
-            taskCategories = snapshot
-        # load (once) tasks for ID-names conversion
-        tasks = []
-        $scope.tasks.$on "loaded", (snapshot) ->
-            tasks = snapshot
-        # load (once) users for ID-names conversion
-        users = []
-        $scope.users.$on "loaded", (snapshot) ->
-            users = snapshot
-
-        $scope.taskCategoryName = (taskCategoryID) ->
-            return taskCategories[taskCategoryID].name
-        $scope.taskName = (taskID) ->
-            return taskID + ' - ' + $scope.taskCategoryName(tasks[taskID].taskCategoryID) + ' - ' +  tasks[taskID].name
-        $scope.userName = (userID) ->
-            return users[userID].name.first + ' ' + users[userID].name.last
+        $scope.records = recordService.records
+        $scope.tasks = taskService.tasks
+        $scope.users = userService.users
 
         # Firebase communication
         $scope.addRecord = ->
+            # TODO delete this after debugging
             console.log(Math.abs(new Date($scope.end) - new Date($scope.start))/1000/60/60)
             maxDuration = Math.max(Math.abs(new Date($scope.end) - new Date($scope.start))/1000/60/60, $scope.duration)
+            # TODO delete this after debugging
             console.log('Duration: ' + maxDuration)
-            $scope.records.$add
-                userID: $scope.user.userID,
-                taskID: $scope.task.taskID,
+
+            recordService.add
+                userID: $scope.userID
+                taskID: $scope.taskID
                 timeInterval:
-                    start: $scope.start,
-                    end: $scope.end,
-                    duration: maxDuration
-            .then (reference) ->
-                # add userID to user
-                recordID = reference.name()
-                record = $scope.records.$child(recordID)
-                record.$update 'recordID': recordID
-                record.$priority = $scope.userID
-                $scope.records.$save(recordID)
-                # add reference to record in user
-                $firebase(new Firebase(FBURL + 'users')).$child($scope.user.userID + '/records/' + recordID).$set true
-        $scope.deleteRecord = (record) ->
-            $scope.records.$remove record.recordID
-            $firebase(new Firebase(FBURL + 'users')).$child(record.userID + '/records/').$remove record.recordID
+                    start: $scope.start
+                    end: $scope.end
+                    duration: $scope.maxDuration
+        $scope.removeRecord = (record) ->
+            recordService.remove record

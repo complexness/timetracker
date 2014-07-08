@@ -2,6 +2,7 @@
 
 angular.module('timetrackerApp')
   .factory 'authService', ($rootScope, $firebase, $firebaseSimpleLogin, FBURL) ->
+    
     firebaseReference = new Firebase FBURL
     auth = $firebaseSimpleLogin firebaseReference
     
@@ -16,21 +17,23 @@ angular.module('timetrackerApp')
                 email: loginEmail
                 password: loginPassword
             .then (user) ->
-                # TODO proper logging!!
+                # TODO proper logging
                 console.log 'Login success: ', user
             , (error) ->
-                # TODO proper error logging...
-                console.log 'Login failed: ', error
+                # TODO proper logging
+                console.log 'Login failure: ', error
         logout: ->
             auth.$logout()
-        changePassword: (email, oldPassword, newPassword) ->
+        changePassword: (oldPassword, newPassword) ->
             auth.$getCurrentUser()
             .then (user) ->
-                auth.$changePassword email, oldPassword, newPassword
+                auth.$changePassword user.email, oldPassword, newPassword
         createUser: (loginEmail, loginPassword) ->
             auth.$createUser loginEmail, loginPassword, true
-        removeUser: (email, password) ->
-            auth.$removeUser email, password
+        removeUser: (password) ->
+            auth.$getCurrentUser()
+            .then (user) ->
+                auth.$removeUser user.email, password
         sendPasswordResetEmail: (email) ->
             auth.$sendPasswordResetEmail email
     }
