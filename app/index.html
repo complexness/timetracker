@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Time Tracker</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -23,6 +23,7 @@
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -37,14 +38,15 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav" ng-controller="AuthCtrl" ng-show="auth.user">
+        <div class="collapse navbar-collapse" ng-controller="AuthCtrl">
+          <ul class="nav navbar-nav" ng-show="auth.user">
             <li><a href="/task">Tasks</a></li>
+            <li><a href="/taskCategories">Task Categories</a></li>
             <li><a href="/record">Records</a></li>
             <li><a href="/user">Users</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown" ng-controller="AuthCtrl" ng-show="auth.user">
+          <ul class="nav navbar-nav navbar-right" ng-show="auth.user">
+            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{auth.user.email}} <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="/settings">Settings</a></li>
@@ -57,6 +59,7 @@
     </nav>
     <!-- Add your site or application content here -->
     <div class="container-fluid" ng-view="">
+      
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -69,12 +72,10 @@
        ga('create', 'UA-XXXXX-X');
        ga('send', 'pageview');
     </script>
-
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
-
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/jquery.js"></script>
@@ -89,19 +90,25 @@
     <script src="bower_components/angularfire/angularfire.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/task.js"></script>
-        <script src="scripts/controllers/user.js"></script>
-        <script src="scripts/controllers/record.js"></script>
-        <script src="scripts/controllers/auth.js"></script>
-        <script src="scripts/services/authservice.js"></script>
-        <script src="scripts/services/fburl.js"></script>
-        <script src="scripts/services/userservice.js"></script>
-        <script src="scripts/services/californiaminimumwage.js"></script>
-        <script src="scripts/services/defaultjobdescription.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/task.js"></script>
+    <script src="scripts/controllers/user.js"></script>
+    <script src="scripts/controllers/record.js"></script>
+    <script src="scripts/controllers/auth.js"></script>
+    <script src="scripts/services/authservice.js"></script>
+    <script src="scripts/services/fburl.js"></script>
+    <script src="scripts/services/userservice.js"></script>
+    <script src="scripts/services/californiaminimumwage.js"></script>
+    <script src="scripts/services/defaultjobdescription.js"></script>
+    <script src="scripts/services/recordservice.js"></script>
+    <script src="scripts/services/taskservice.js"></script>
+    <script src="scripts/services/roleservice.js"></script>
+    <script src="scripts/services/taskcategoryservice.js"></script>
+    <script src="scripts/filters/idtoname.js"></script>
+    <script src="scripts/controllers/taskcategory.js"></script>
+    <script src="scripts/controllers/settings.js"></script>
+    <!-- endbuild -->
 </body>
 </html>
