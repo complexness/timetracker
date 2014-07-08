@@ -1,11 +1,13 @@
 'use strict'
 
 angular.module('timetrackerApp')
-    .controller 'UserCtrl', ($scope, userService) ->
-        $scope.roles = userService.roles
+    .controller 'UserCtrl', ($scope, userService, roleService) ->
+
+        $scope.roles = roleService.roles
         $scope.users = userService.users
+
         $scope.addUser = ->
-            userService.addUser
+            userService.add
                 email: $scope.loginEmail
                 name:
                     first: $scope.nameFirst
@@ -15,9 +17,9 @@ angular.module('timetrackerApp')
                     description: $scope.jobDescription
                     startDate: $scope.jobStartDate
                     payRatePerHour: $scope.jobPayRatePerHour
-            # blank form
+            # reset form
             $scope.nameFirst = $scope.nameLast = ''
-            $scope.loginEmail = $scope.loginPassword = ''
+            $scope.loginEmail = ''
             $scope.jobDescription = ''
             $scope.jobStartDate = ''
             $scope.payRatePerHour = 0
@@ -25,6 +27,6 @@ angular.module('timetrackerApp')
         $scope.deleteUser = (user) ->
             userService.remove(user)
             # TODO tell user that deletion is successful
-        $scope.updateUserRole = (user, roleDst) ->
-            userService.updateUserRole(user, roleDst)
+        $scope.updateUser = (user, roleDst) ->
+            userService.update(user, userData)
             # TODO tell user that update is successful

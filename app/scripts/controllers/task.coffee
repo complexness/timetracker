@@ -1,28 +1,21 @@
 'use strict'
 
 angular.module('timetrackerApp')
-    .controller 'TaskCtrl', ($scope, $firebase, FBURL) ->
-        $scope.tasks = $firebase(new Firebase(FBURL + 'tasks'))
-        $scope.taskCategories = $firebase(new Firebase(FBURL + 'taskCategories'))
+    .controller 'TaskCtrl', ($scope, taskService, taskCategoryService) ->
 
-        # Display values
-        taskCategories = []
-        $scope.taskCategories.$on "loaded", (snapshot) ->
-            taskCategories = snapshot
-        $scope.taskCategoryName = (taskCategoryID) ->
-            return taskCategories[taskCategoryID].name
+        $scope.tasks            = taskService.tasks
+        $scope.taskCategories   = taskCategoryService.taskCategories
 
         # Firebase communication
         $scope.addTask = ->
-            $scope.tasks.$child($scope.taskID).$set
-                taskID: $scope.taskID,
-                taskCategoryID: $scope.taskCategory.taskCategoryID,
-                name: $scope.name,
-                active: true
-            $scope.taskCategories.$child($scope.taskCategory.taskCategoryID + '/tasks/' + $scope.taskID).$set true
+            taskService.add
+                taskID: $scope.taskID
+                taskCategoryID: $scope.taskCategoryID
+                name: $scope.name
+            $scope.taskCategories.$child($scope.taskCategoryID + '/tasks/' + $scope.taskID).$set true
             # reset form
-            $scope.number = 0
-            $scope.category = $scope.description = ''
+            $scope.taskID = 0
+            $scope.taskCategoryID = $scope.description = ''
         $scope.deleteTask = (task) ->
             $scope.tasks.$remove task.taskID
             $scope.taskCategories.$child(task.taskCategoryID + '/tasks/').$remove task.taskID

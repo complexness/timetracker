@@ -11,7 +11,7 @@ angular.module('timetrackerApp', [
     $routeProvider
       .when '/',
         templateUrl: 'views/main.html'
-        controller: 'MainCtrl'
+        controller: 'AuthCtrl'
       .when '/passwordforgot',
         templateUrl: 'views/passwordforgot.html'
         controller: 'AuthCtrl'
@@ -30,8 +30,11 @@ angular.module('timetrackerApp', [
       .when '/user',
         templateUrl: 'views/user.html'
         controller: 'UserCtrl'
+      .when '/taskCategories',
+        templateUrl: 'views/taskcategories.html'
+        controller: 'TaskCategoryCtrl'
       .otherwise
         redirectTo: '/'
 
-    # remove hash from URLs ('domain/#/path' to 'domain/path')
+    # remove hash from URLs (from 'domain/#/path' to 'domain/path')
     $locationProvider.html5Mode true
